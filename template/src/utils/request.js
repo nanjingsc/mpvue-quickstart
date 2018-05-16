@@ -18,14 +18,12 @@ fly.interceptors.request.use(function (request){
     request.body =  qs.stringify(request.body)
 
     // 请求带上cookie
-    return this.await(
-        getStorage('cookie').then( ({ data }) =>{
-            request.headers = Object.assign(request.headers, {'Cookie':'sc_jwb='+data})
-            return request
-        }).catch( () => {
-            return request
-        })
-    )
+    return getStorage('cookie').then( ({ data }) =>{
+      request.headers = Object.assign(request.headers, {'Cookie':'sc_jwb='+data})
+      return request
+    }).catch( () => {
+      return request
+    })
 })
 
 fly.interceptors.response.use(
